@@ -1,3 +1,4 @@
+# .gitignore
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
@@ -31,3 +32,18 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Environment Variables ###
+.env
+*.env.local
+*.env.development
+*.env.test
+*.env.production
+
+### Logs ###
+logs/
+*.log
+
+### OS specific ###
+.DS_Store
+Thumbs.db
