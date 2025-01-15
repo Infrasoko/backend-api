@@ -76,7 +76,7 @@ logging:
     flywaydb: ${FLYWAY_LOG_LEVEL:INFO}
 
 # Custom properties
-amis:
+infrasoko:
   auth:
     jwt:
       # Configuration expects a Base64-encoded key with a minimum size of 32 bytes (>= 256 bits)
@@ -113,3 +113,9 @@ swagger-doc:
   info-description: ${SWAGGER_INFO_DESCRIPTION:}
   info-contact-name: ${SWAGGER_INFO_CONTACT_NAME:}
   info-contact-email: ${SWAGGER_INFO_CONTACT_EMAIL:}
+
+# SMS configuration
+sms:
+  account-sid: ${TWILIO_ACCOUNT_SID:}
+  auth-token: ${TWILIO_AUTH_TOKEN:}
+  from-number: ${TWILIO_PHONE_NUMBER:}
