@@ -1,0 +1,115 @@
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  application:
+    name: ${APP_NAME}
+
+  datasource:
+    driver-class-name: ${DB_DRIVER}
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+
+  mail:
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  thymeleaf:
+    suffix: .html
+    mode: HTML
+    encoding: UTF-8
+    content-type: text/html
+    cache: true
+
+  profiles:
+    active: ${APP_ENV}
+
+  devtools:
+    restart:
+      enabled: true
+      pollInterval: 5s
+
+  flyway:
+    enabled: ${FLYWAY_ENABLED:true}
+    sql-migration-prefix: 'v'
+    user: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    validate-migration-naming: true
+    out-of-order: true
+
+  data:
+    web:
+      pageable:
+        max-page-size: 100
+
+  servlet:
+    multipart:
+      max-file-size: 1MB
+      max-request-size: 20MB
+
+logging:
+  level:
+    web: ${WEB_LOG_LEVEL:INFO}
+    root: ${ROOT_LOG_LEVEL:INFO}
+    com.laurent.infrasoko: ${INFRASOKO_PACKAGE_LOG_LEVEL:INFO}
+    io.hypersistence.utils.hibernate.query: ${SQL_QUERY_TRACE:OFF}
+    net.ttddyy.dsproxy.listener: ${SQL_QUERY_LOGGING:OFF}
+
+  org:
+    flywaydb: ${FLYWAY_LOG_LEVEL:INFO}
+
+# Custom properties
+amis:
+  auth:
+    jwt:
+      # Configuration expects a Base64-encoded key with a minimum size of 32 bytes (>= 256 bits)
+      # The key is decoded and used with HMAC-SHA 256 or 384 or 512 depending on key length.
+      secret: ${JWT_SECRET}
+      access-token-lifespan: ${JWT_ACCESS_TOKEN_LIFESPAN:15}   # Access token lifespan in milliseconds
+      refresh-token-lifespan: ${JWT_REFRESH_TOKEN_LIFESPAN:120} # Refresh token lifespan in milliseconds
+    public-api-paths: ${PUBLIC_API_PATHS}
+    account-verification:
+      code-expiration-period: ${VERIFICATION_CODE_EXPIRY_PERIOD:10} # In minutes
+      verification-link: ${VERIFICATION_LINK:""}
+      login-link: ${LOGIN_LINK:""}
+  cors:
+    allow-origins: ${CORS_ALLOWED_ORIGINS:"**"}
+  file:
+    storage-path: "infrasoko_uploads"
+    max-file-size-in-mb: 5 # In MB
+
+
+# swagger api documentation
+springdoc:
+  swagger-ui:
+    enabled: ${SWAGGER_DOC_ENABLED:false} # Disabling the /v3/api-docs endpoint
+    path: ${SWAGGER_UI_PATH:} # Custom path
+    defaultModelsExpandDepth: -1 # Hide Schemas section in Swagger UI
+  api-docs:
+    path: ${SWAGGER_API_DOC_PATH:}
+    enabled: ${SWAGGER_DOC_ENABLED:false} # Disabling the swagger-ui
+swagger-doc:
+  server-url: ${SWAGGER_SERVER_URL:}
+  server-description: ${SWAGGER_SERVER_DESCRIPTION:}
+  info-title: ${SWAGGER_INFO_TITLE:}
+  info-version: ${SWAGGER_INFO_VERSION:}
+  info-description: ${SWAGGER_INFO_DESCRIPTION:}
+  info-contact-name: ${SWAGGER_INFO_CONTACT_NAME:}
+  info-contact-email: ${SWAGGER_INFO_CONTACT_EMAIL:}
